@@ -14,10 +14,8 @@ class CloudFlare( object ):
       return self.value
 
   def callAPI( self, params ):
-    a = urllib.urlencode( params )
-    b = { 'Content-type': 'www-form-urlencoded', 'Accept': '*/*' }
     req = httplib.HTTPSConnection( 'www.cloudflare.com' )
-    req.request( 'POST', '/api_json.html', a, b )
+    req.request( 'GET', '/api_json.html?'+params )
     response = req.getresponse()
     data = response.read()
     try:
@@ -31,209 +29,96 @@ class CloudFlare( object ):
 
   # Stats
   def stats( self, z, interval ):
-    return self.callAPI( {
-      '@act': 'stats',
-      '@z': z,
-      '@interval': interval,
-      '@tkn': self.TOKEN,
-      '@email': self.EMAIL
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&z=%z&interval=%z" % ( 'stats', self.EMAIL, self.TOKEN, z, interval ) )
 
 
   # Load all zones
   def zone_load_multi( self ):
-    return self.callAPI( {
-      '@act': 'zone_load_multi',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s" % ( 'zone_load_multi', self.EMAIL, self.TOKEN ) )
 
 
   # Load all DNS records
   def rec_load_all( self, z ):
-    return self.callAPI( {
-      '@act': 'rec_load_all',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@z': z
-    } )
-
+    return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s" % ( 'rec_load_all', self.EMAIL, self.TOKEN, z ) )
 
   # Zone Check
   def zone_check( self, zones ):
-    return self.callAPI( {
-      '@act': 'zone_check',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@zones': zones
-    } )
-
+    return self.callAPI( "act=%s&email=%s&tkn=%s&zones=%s" % ( 'zone_check', self.EMAIL, self.TOKEN, zones ) )
 
   # Zone IPs
   def zone_ips( self, z, hours, _class = None, geo = None ):
     if _class is None and geo is None:
-      return self.callAPI( {
-        '@act': 'zone_ips',
-        '@email': self.EMAIL,
-        '@tkn': self.TOKEN,
-        '@z': z,
-        '@hours': hours
-      } )
+      return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&hours=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours ) )
     elif _class is not None and geo is None:
-      return self.callAPI( {
-        '@act': 'zone_ips',
-        '@email': self.EMAIL,
-        '@tkn': self.TOKEN,
-        '@z': z,
-        '@hours': hours,
-        '@class': _class
-      } )
+      return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&hours=%s&class=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours, _class ) )
     elif _class is None and geo is not None:
-      return self.callAPI( {
-        '@act': 'zone_ips',
-        '@email': self.EMAIL,
-        '@tkn': self.TOKEN,
-        '@z': z,
-        '@hours': hours,
-        '@geo': geo
-      } )
+      return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&hours=%s&geo=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours, geo ) )
     else:
-      return self.callAPI( {
-        '@act': 'zone_ips',
-        '@email': self.EMAIL,
-        '@tkn': self.TOKEN,
-        '@z': z,
-        '@hours': hours,
-        '@class': _class,
-        '@geo': geo
-      } )
+      return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&hours=%s&class=%s&geo=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours, _class, geo ) )
 
 
   # IP Lookup
   def ip_lkup( self, ip ):
-    return callAPI( {
-      '@act': 'ip_lkup',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@ip': ip
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&ip=%s" % ( 'ip_lkup', self.EMAIL, self.TOKEN, ip ) )
 
 
   # Security Level
   def sec_lvl( self, z, v ):
-    return callAPI( {
-      '@act': 'sec_lvl',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@z': z,
-      '@v': v
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&v=%s" % ( 'sec_lvl', self.EMAIL, self.TOKEN, z, v ) )
 
 
   # Cache Level
   def cache_lvl( self, z, v ):
-    return self.callAPI( {
-      '@act': 'cache_lvl',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@z': z,
-      '@v': v
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&v=%s" % ( 'cache_lvl', self.EMAIL, self.TOKEN, z, v ) )
 
 
   # Development Mode
   def devmode( self, z, v ):
-    return self.callAPI( {
-      '@act': 'devmode',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@z': z,
-      '@v': v
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&v=%s" % ( 'devmode', self.EMAIL, self.TOKEN, z, v ) )
+
 
 
   # Full Zone Purge
   def fpurge_ts( self, z, v ):
-    return self.callAPI( {
-      '@act': 'fpurge_ts',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@z': z,
-      '@v': v
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&v=%s" % ( 'fpurge_ts', self.EMAIL, self.TOKEN, z, v ) )
 
 
   # Grab Zones
   def zone_grab( self, zid ):
-    return self.callAPI( {
-      '@act': 'zone_grab',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@zid': zid
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&zid=%s" % ( 'zone_grab', self.EMAIL, self.TOKEN, zid ) )
 
 
   # Whitelist IP
   def wl( self, key ):
-    return self.callAPI( {
-      '@act': 'wl',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@key': key
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&key=%s" % ( 'wl', self.EMAIL, self.TOKEN, key ) )
 
 
   # Ban/Blacklist IP
   def ban( self, key ):
-    return self.callAPI( {
-      '@act': 'ban',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@key': key
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&key=%s" % ( 'ban', self.EMAIL, self.TOKEN, key ) )
 
 
   # Set DNS Record
   def rec_set( self, zone, _type, content, name, service_mode ):
-    return self.callAPI( {
-      '@act': 'rec_set',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@zone': zone,
-      '@type': _type,
-      '@content': content,
-      '@name': name
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&zone=%s&type=%s&content=%s&name=%s&service_mode=%s" % ( 'rec_set', self.EMAIL, self.TOKEN, zone, _type, content, name, service_mode ) )
 
 
   # Delete DNS record
   def rec_del( self, zone, name ):
-    return self.callAPI( {
-      '@act': 'rec_del',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@zone': zone,
-      '@name': name
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&zone=%s&name=%s" % ( 'rec_del', self.EMAIL, self.TOKEN, zone, name ) )
 
 
   # A Record Update (DIUP)
   def DIUP( self, ip, hosts ):
-    return self.callAPI( {
-      '@act': 'DIUP',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@ip': ip,
-      '@hosts': hosts
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&ip=%s&hosts=%s" % ( 'DIUP', self.EMAIL, self.TOKEN, ip, hosts ) )
 
 
   # Toggle IPv6 support
   def ipv46( self, z, v ):
-    return self.callAPI( {
-      '@act': 'ipv46',
-      '@email': self.EMAIL,
-      '@tkn': self.TOKEN,
-      '@z': z,
-      '@v': v
-    } )
+    return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&v=%s" % ( 'ipv46', self.EMAIL, self.TOKEN, z, v ) )
+
+
+  # Single file purge DROP-IN
+  def fpurge_whatever( self, z, v ):
+    raise NotImplemented
+    #return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&v=%s" % ( 'fpurge_whatever', self.EMAIL, self.TOKEN, z, v ) )
