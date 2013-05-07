@@ -43,7 +43,7 @@ class CloudFlare( object ):
 
     # Zone Check
     def zone_check( self, zones ):
-        return self.callAPI( "act=%s&email=%s&tkn=%s&zones=%s" % ( 'zone_check', self.EMAIL, self.TOKEN, zones ) )
+        return self.callAPI( "act=%s&email=%s&tkn=%s&zs=%s" % ( 'zone_check', self.EMAIL, self.TOKEN, zones ) )
 
     # Zone IPs
     def zone_ips( self, z, hours, _class = None, geo = None ):
@@ -98,19 +98,22 @@ class CloudFlare( object ):
         return self.callAPI( "act=%s&email=%s&tkn=%s&key=%s" % ( 'ban', self.EMAIL, self.TOKEN, key ) )
 
 
-    # Set DNS Record
-    def rec_set( self, zone, _type, content, name, service_mode ):
-        return self.callAPI( "act=%s&email=%s&tkn=%s&zone=%s&type=%s&content=%s&name=%s&service_mode=%s" % ( 'rec_set', self.EMAIL, self.TOKEN, zone, _type, content, name, service_mode ) )
+    # Create new DNS Record
+    def rec_new( self, zone, _type, content, name, service_mode ):
+        fmt = "act=%s&email=%s&tkn=%s&z=%s&type=%s&content=%s&name=%s&service_mode=%s&ttl=1"
+        values = ('rec_new', self.EMAIL, self.TOKEN, zone, _type, content, name, service_mode)
+        return self.callAPI( fmt % values )
 
 
     # Delete DNS record
-    def rec_del( self, zone, name ):
-        return self.callAPI( "act=%s&email=%s&tkn=%s&zone=%s&name=%s" % ( 'rec_del', self.EMAIL, self.TOKEN, zone, name ) )
+    def rec_delete( self, zone, name ):
+        return self.callAPI( "act=%s&email=%s&tkn=%s&z=%s&name=%s" % ( 'rec_delete', self.EMAIL, self.TOKEN, zone, name ) )
 
 
-    # A Record Update (DIUP)
-    def DIUP( self, ip, hosts ):
-        return self.callAPI( "act=%s&email=%s&tkn=%s&ip=%s&hosts=%s" % ( 'DIUP', self.EMAIL, self.TOKEN, ip, hosts ) )
+    # Edit an existing record
+    def rec_edit( self, z, _type, _id, name, content ):
+        fmt = "act=%s&tkn=%s&id=%s&email=%s&z=%s&type=%s&name=%s&content=%s&ttl=1"
+        return self.callAPI( fmt % ( 'rec_edit', self.TOKEN, _id, self.EMAIL, z, _type, name, content))
 
 
     # Toggle IPv6 support

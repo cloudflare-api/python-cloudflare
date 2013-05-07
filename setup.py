@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='python-cloudflare',
-    version='0.1',
+    version='0.2',
     description='Python wrapper for the CloudFlare Client API',
     author='Katie Price',
     author_email='katie.price@geodelab.com',
