@@ -122,6 +122,5 @@ class CloudFlare( object ):
 
 
     # Single file purge DROP-IN
-    def fpurge_whatever( self, z, v ):
-        raise NotImplemented
-        #return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&v=%s" % ( 'fpurge_whatever', self.EMAIL, self.TOKEN, z, v ) )
+    def zone_file_purge( self, z, v ):
+        return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&url=%s" % ( 'zone_file_purge', self.EMAIL, self.TOKEN, z, v ) )
