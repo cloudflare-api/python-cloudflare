@@ -4,9 +4,9 @@ setup(
     name='python-cloudflare',
     version='0.2',
     description='Python wrapper for the CloudFlare Client API',
-    author='Katie Price',
-    author_email='katie.price@geodelab.com',
-    url='http://git.eitak.se/python-cloudflare',
+    author='kayteh',
+    author_email='me@kayteh.com',
+    url='http://github.com/eitak-ssim/python-cloudflare',
     packages=['cloudflare']
     )
 
