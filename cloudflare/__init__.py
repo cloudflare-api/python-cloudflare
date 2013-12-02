@@ -106,8 +106,8 @@ class CloudFlare( object ):
 
 
     # Delete DNS record
-    def rec_delete( self, zone, name ):
-        return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&name=%s" % ( 'rec_delete', self.EMAIL, self.TOKEN, zone, name ) )
+    def rec_delete( self, zone, id ):
+        return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&id=%s" % ( 'rec_delete', self.EMAIL, self.TOKEN, zone, id ) )
 
 
     # Edit an existing record
