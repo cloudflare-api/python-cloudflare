@@ -111,9 +111,9 @@ class CloudFlare( object ):
 
 
     # Edit an existing record
-    def rec_edit( self, z, _type, _id, name, content ):
-        fmt = "a=%s&tkn=%s&id=%s&email=%s&z=%s&type=%s&name=%s&content=%s&ttl=1"
-        return self.callAPI( fmt % ( 'rec_edit', self.TOKEN, _id, self.EMAIL, z, _type, name, content))
+    def rec_edit( self, z, _type, _id, name, content, service_mode=1 ):
+        fmt = "a=%s&tkn=%s&id=%s&email=%s&z=%s&type=%s&name=%s&content=%s&ttl=1&service_mode=%s"
+        return self.callAPI( fmt % ( 'rec_edit', self.TOKEN, _id, self.EMAIL, z, _type, name, content, service_mode))
 
 
     # Toggle IPv6 support
