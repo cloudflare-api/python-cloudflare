@@ -29,7 +29,7 @@ class CloudFlare( object ):
 
     # Stats
     def stats( self, z, interval ):
-        return self.callAPI( "a=%s&email=%s&tkn=%s&z=%z&interval=%z" % ( 'stats', self.EMAIL, self.TOKEN, z, interval ) )
+        return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&interval=%s" % ( 'stats', self.EMAIL, self.TOKEN, z, interval ) )
 
 
     # Load all zones
