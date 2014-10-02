@@ -51,6 +51,10 @@ class CloudFlare( object ):
         return self.callAPI( "a=%s&email=%s&tkn=%s&ip=%s" % ( 'ip_lkup', self.EMAIL, self.TOKEN, ip ) )
 
 
+    # List all current setting values
+    def zone_settings( self, z ):
+        return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s" % ( 'zone_settings', self.EMAIL, self.TOKEN, z ) )
+
     # Security Level
     def sec_lvl( self, z, v ):
         return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&v=%s" % ( 'sec_lvl', self.EMAIL, self.TOKEN, z, v ) )
