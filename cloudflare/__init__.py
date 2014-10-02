@@ -83,11 +83,6 @@ class CloudFlare( object ):
         return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&v=%s" % ( 'fpurge_ts', self.EMAIL, self.TOKEN, z, v ) )
 
 
-    # Grab Zones
-    def zone_grab( self, zid ):
-        return self.callAPI( "a=%s&email=%s&tkn=%s&zid=%s" % ( 'zone_grab', self.EMAIL, self.TOKEN, zid ) )
-
-
     # Whitelist IP
     def wl( self, key ):
         return self.callAPI( "a=%s&email=%s&tkn=%s&key=%s" % ( 'wl', self.EMAIL, self.TOKEN, key ) )
