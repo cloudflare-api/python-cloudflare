@@ -45,17 +45,6 @@ class CloudFlare( object ):
     def zone_check( self, zones ):
         return self.callAPI( "a=%s&email=%s&tkn=%s&zs=%s" % ( 'zone_check', self.EMAIL, self.TOKEN, zones ) )
 
-    # Zone IPs
-    def zone_ips( self, z, hours, _class = None, geo = None ):
-        if _class is None and geo is None:
-            return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&hours=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours ) )
-        elif _class is not None and geo is None:
-            return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&hours=%s&class=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours, _class ) )
-        elif _class is None and geo is not None:
-            return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&hours=%s&geo=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours, geo ) )
-        else:
-            return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&hours=%s&class=%s&geo=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours, _class, geo ) )
-
 
     # IP Lookup
     def ip_lkup( self, ip ):
