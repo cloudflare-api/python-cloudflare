@@ -45,22 +45,15 @@ class CloudFlare( object ):
     def zone_check( self, zones ):
         return self.callAPI( "a=%s&email=%s&tkn=%s&zs=%s" % ( 'zone_check', self.EMAIL, self.TOKEN, zones ) )
 
-    # Zone IPs
-    def zone_ips( self, z, hours, _class = None, geo = None ):
-        if _class is None and geo is None:
-            return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&hours=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours ) )
-        elif _class is not None and geo is None:
-            return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&hours=%s&class=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours, _class ) )
-        elif _class is None and geo is not None:
-            return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&hours=%s&geo=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours, geo ) )
-        else:
-            return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&hours=%s&class=%s&geo=%s" % ( 'zone_ips', self.EMAIL, self.TOKEN, z, hours, _class, geo ) )
-
 
     # IP Lookup
     def ip_lkup( self, ip ):
         return self.callAPI( "a=%s&email=%s&tkn=%s&ip=%s" % ( 'ip_lkup', self.EMAIL, self.TOKEN, ip ) )
 
+
+    # List all current setting values
+    def zone_settings( self, z ):
+        return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s" % ( 'zone_settings', self.EMAIL, self.TOKEN, z ) )
 
     # Security Level
     def sec_lvl( self, z, v ):
@@ -81,11 +74,6 @@ class CloudFlare( object ):
     # Full Zone Purge
     def fpurge_ts( self, z, v ):
         return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&v=%s" % ( 'fpurge_ts', self.EMAIL, self.TOKEN, z, v ) )
-
-
-    # Grab Zones
-    def zone_grab( self, zid ):
-        return self.callAPI( "a=%s&email=%s&tkn=%s&zid=%s" % ( 'zone_grab', self.EMAIL, self.TOKEN, zid ) )
 
 
     # Whitelist IP
