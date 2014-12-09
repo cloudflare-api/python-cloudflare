@@ -87,9 +87,9 @@ class CloudFlare( object ):
 
 
     # Create new DNS Record
-    def rec_new( self, zone, _type, content, name, service_mode ):
-        fmt = "a=%s&email=%s&tkn=%s&z=%s&type=%s&content=%s&name=%s&service_mode=%s&ttl=1"
-        values = ('rec_new', self.EMAIL, self.TOKEN, zone, _type, content, name, service_mode)
+    def rec_new( self, zone, _type, content, name ):
+        fmt = "a=%s&email=%s&tkn=%s&z=%s&type=%s&content=%s&name=%s&ttl=1"
+        values = ('rec_new', self.EMAIL, self.TOKEN, zone, _type, content, name)
         return self.callAPI( fmt % values )
 
 
