@@ -38,8 +38,8 @@ class CloudFlare( object ):
 
 
     # Load all DNS records
-    def rec_load_all( self, z ):
-        return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s" % ( 'rec_load_all', self.EMAIL, self.TOKEN, z ) )
+    def rec_load_all( self, z, o=0 ):
+        return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&o=%s" % ( 'rec_load_all', self.EMAIL, self.TOKEN, z, o ) )
 
     # Zone Check
     def zone_check( self, zones ):
@@ -87,7 +87,7 @@ class CloudFlare( object ):
 
 
     # Create new DNS Record
-    def rec_new( self, zone, _type, content, name ):
+    def rec_new( self, zone, _type, name, content ):
         fmt = "a=%s&email=%s&tkn=%s&z=%s&type=%s&content=%s&name=%s&ttl=1"
         values = ('rec_new', self.EMAIL, self.TOKEN, zone, _type, content, name)
         return self.callAPI( fmt % values )
