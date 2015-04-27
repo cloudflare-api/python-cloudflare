@@ -1,6 +1,5 @@
 import httplib
 import json
-import urllib
 
 class CloudFlare( object ):
     def __init__( self, email, token ):
