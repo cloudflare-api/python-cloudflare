@@ -1,4 +1,8 @@
-import httplib
+try:
+    import httplib
+except ImportError:
+    import http.client as httplib
+
 import json
 
 class CloudFlare( object ):

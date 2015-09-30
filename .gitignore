@@ -36,3 +36,9 @@ nosetests.xml
 .pydevproject
 
 .svn
+
+DS_Store
+*.pyc
+.idea
+__pycache__
+
