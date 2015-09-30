@@ -5,28 +5,29 @@ except ImportError:
 
 import json
 
-class CloudFlare( object ):
-    def __init__( self, email, token ):
+
+class CloudFlare(object):
+    def __init__(self, email, token):
         self.EMAIL = email
         self.TOKEN = token
 
-    class APIError( Exception ):
-        def __init__( self, value ):
+    class APIError(Exception):
+        def __init__(self, value):
             self.value = value
-        def __str__( self ):
+        def __str__(self):
             return self.value
 
     def callAPI( self, params ):
-        req = httplib.HTTPSConnection( 'www.cloudflare.com' )
-        req.request( 'GET', '/api_json.html?'+params )
+        req = httplib.HTTPSConnection('www.cloudflare.com')
+        req.request('GET', '/api_json.html?'+params)
         response = req.getresponse()
-        data = response.read()
+        data = response.read().decode('utf-8')
         try:
-            data = json.loads( data )
+            data = json.loads(data)
         except ValueError:
-            raise self.APIError( 'JSON parse failed.' )
+            raise self.APIError('JSON parse failed.')
         if data['result'] == 'error':
-            raise self.APIError( data['msg'] )
+            raise self.APIError(data['msg'])
         return data
 
 
