@@ -102,7 +102,7 @@ class CloudFlare(object):
         return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&id=%s" % ( 'rec_delete', self.EMAIL, self.TOKEN, zone, id ) )
 
     # Get id DNS record by name
-    def get_rec_by_id(self, zone, name):
+    def get_rec_id_by_name(self, zone, name):
         list_dns_record = self.rec_load_all(zone)['response']['recs']['objs']
         for dns_record in list_dns_record:
             if name == dns_record['display_name']:
