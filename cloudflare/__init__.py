@@ -1,28 +1,33 @@
-import httplib
+try:
+    import httplib
+except ImportError:
+    import http.client as httplib
+
 import json
 
-class CloudFlare( object ):
-    def __init__( self, email, token ):
+
+class CloudFlare(object):
+    def __init__(self, email, token):
         self.EMAIL = email
         self.TOKEN = token
 
-    class APIError( Exception ):
-        def __init__( self, value ):
+    class APIError(Exception):
+        def __init__(self, value):
             self.value = value
-        def __str__( self ):
+        def __str__(self):
             return self.value
 
     def callAPI( self, params ):
-        req = httplib.HTTPSConnection( 'www.cloudflare.com' )
-        req.request( 'GET', '/api_json.html?'+params )
+        req = httplib.HTTPSConnection('www.cloudflare.com')
+        req.request('GET', '/api_json.html?'+params)
         response = req.getresponse()
-        data = response.read()
+        data = response.read().decode('utf-8')
         try:
-            data = json.loads( data )
+            data = json.loads(data)
         except ValueError:
-            raise self.APIError( 'JSON parse failed.' )
+            raise self.APIError('JSON parse failed.')
         if data['result'] == 'error':
-            raise self.APIError( data['msg'] )
+            raise self.APIError(data['msg'])
         return data
 
 
@@ -96,6 +101,13 @@ class CloudFlare( object ):
     def rec_delete( self, zone, id ):
         return self.callAPI( "a=%s&email=%s&tkn=%s&z=%s&id=%s" % ( 'rec_delete', self.EMAIL, self.TOKEN, zone, id ) )
 
+    # Get id DNS record by name
+    def get_rec_id_by_name(self, zone, name):
+        list_dns_record = self.rec_load_all(zone)['response']['recs']['objs']
+        for dns_record in list_dns_record:
+            if name == dns_record['display_name']:
+                return dns_record['rec_id']
+        return None
 
     # Edit an existing record
     def rec_edit( self, z, _type, _id, name, content, service_mode=1, ttl=1 ):
