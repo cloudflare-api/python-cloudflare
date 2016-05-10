@@ -21,6 +21,3 @@ Updating an A record from this API would look like this...
 
     result = cfapi.DIUP('8.8.102.112', 'example.com,example.org')
     #=> Returns a dict of what the API returned for that method.
-
-## Support
-I will provide support via email (katie.price@geodelab.com) or by Twitter (<a href='//twitter.com/xietak'>@xietak</a>)
